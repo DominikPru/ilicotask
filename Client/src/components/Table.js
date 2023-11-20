@@ -2,7 +2,6 @@ import React from 'react'
 import "./Table.css"
 
 export default function Table({ data, changePage, page, handleSearch }) {
-let res = data;
   return (
     <div className="main">
     
@@ -34,42 +33,42 @@ let res = data;
               </tr>
             </thead>
             <tbody>
-              {res.map((r, index) => (
+              {data?.map((r, index) => (
                 <tr>
                 <td>
                   <div className="d-flex align-items-center">
                     <div className="">
-                      <p className="fw-bold mb-1">{res[index].kod}</p>
+                      <p className="fw-bold mb-1">{r.kod}</p>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <p className="fw-normal mb-1">{res[index]['uzivatel@showAs']}</p>
+                  <p className="fw-normal mb-1">{r['uzivatel@showAs']}</p>
                 </td>
                 <td>
-                <p className="fw-normal mb-1">{res[index].kontaktJmeno}</p>
+                <p className="fw-normal mb-1">{r.kontaktJmeno}</p>
                 </td>
                 <td>
-                <p className="fw-normal mb-1 fs-small">{res[index]['stat@showAs']}<br/>{res[index].mesto + " " + res[index].psc}<br/>{res[index].ulice}<br/>{res[0].ic + " " + res[0].dic}</p>
+                <p className="fw-normal mb-1 fs-small">{r['stat@showAs']}<br/>{r.mesto + " " + r.psc}<br/>{r.ulice}<br/>{r.ic + " " + r.dic}</p>
                 </td>
-                <td><p className="fw-normal mb-1">{res[index].doprava}</p></td>
+                <td><p className="fw-normal mb-1">{r.doprava}</p></td>
                 <td>
-                <p className="fw-normal mb-1">{res[index]['formaUhradyCis@showAs']}</p>
-                </td>
-                <td>
-                <p className="fw-normal mb-1">{res[index]['stavUzivK@showAs']}</p>
+                <p className="fw-normal mb-1">{r['formaUhradyCis@showAs']}</p>
                 </td>
                 <td>
-                {res[index].polozkyObchDokladu?.map((i, index2) => (
+                <p className="fw-normal mb-1">{r['stavUzivK@showAs']}</p>
+                </td>
+                <td>
+                {r.polozkyObchDokladu?.map((i, index2) => (
                     <p key={index2} className="fw-normal mb-1 fs-small">
-                      {res[index].polozkyObchDokladu[index2].nazev} {res[index].polozkyObchDokladu[index2].sumCelkem}Kč <br />
+                      {i.nazev} {i.sumCelkem}Kč <br />
                     </p>
                 ))}
                 </td>
                 <td>
-                <p className="fw-normal mb-1">{res[index].sumCelkem}</p>
+                <p className="fw-normal mb-1">{r.sumCelkem}</p>
                 </td>
-                <td  onClick={()=> window.open("https://demo.flexibee.eu/c/demo/objednavka-prijata/" + res[index].id + ".pdf", "_blank")} >
+                <td  onClick={()=> window.open("https://demo.flexibee.eu/c/demo/objednavka-prijata/" + r.id + ".pdf", "_blank")} >
                   <button
                     type="button"
                     className="btn btn-link btn-sm btn-rounded text-primary"

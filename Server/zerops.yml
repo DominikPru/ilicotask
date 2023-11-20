@@ -1,7 +1,7 @@
 # hostname of your service
 # (supports monorepositories! just add
 # one service section after the other)
-gymbrobe:
+nodejs0:
   # ==== how to build your application ====
   build:
     # select what technology should the
@@ -43,5 +43,5 @@ gymbrobe:
     # init:
     #  - rm -rf ./cache
 
-    # how to start your application
+    # how to start your application wohooo
     start: node app.js
