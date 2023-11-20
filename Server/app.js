@@ -75,7 +75,12 @@ function getOrdersData(orderCount, orderPage, query) {
 
 app.get("/get_orders", (req, res) => {
   getOrdersData(req.query.orderCount, req.query.orderPage, req.query.search).then((data) => {
-    res.send(JSON.stringify(data));
+    if (data.length > 0) {
+      res.send(JSON.stringify(data));
+    }
+    else{
+      res.send("err")
+    }
   }).catch((error) => {
     console.error("Error in getOrdersData:", error);
     res.status(500).send("Internal Server Error");

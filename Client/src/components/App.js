@@ -7,12 +7,14 @@ function App() {
   const [response, setResponse] = useState();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [runEffect, setRunEffect] = useState(true);
   function handleChangeSearch(event) {
     setSearch(event.target.value);
     console.log(search)
   }
 
 useEffect(() => {
+  if (runEffect){
   axios.get("http://localhost:8888/get_orders", {
     params: {
       orderPage: page,
@@ -20,17 +22,31 @@ useEffect(() => {
       search: search
     }
   }).then((response) => {
-    setResponse(response.data);
-    console.log(response.data);
+    if (response.data == "err")
+    {
+      setPage(page - 1)
+      setRunEffect(false)
+    }
+    else{
+      setResponse(response.data);
+    }
+ 
   }).catch((error) => {
     console.log(error);
   });
+  }
 }, [page, search])
 
+useEffect(() => {
+setPage(0)
+}, [search])
+
 function changePage(next){
-if (next) {
-  setPage(page + 1)
-}
+  setRunEffect(true)
+  if (next) {
+    setPage(page + 1)
+  }
+
 else {
   const newPage = page > 0 ? page - 1 : page;
   setPage(newPage);

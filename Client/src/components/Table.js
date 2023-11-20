@@ -25,7 +25,7 @@ export default function Table({ data, changePage, page, handleSearch }) {
                 <th>Kontakt. Jméno</th>
                 <th>Fakturační Údaje</th>
                 <th>Forma Dopravy</th>
-                <th>Způsop Platby</th>
+                <th>Způsob Platby</th>
                 <th>Stav</th>
                 <th>Položky</th>
                 <th>Cena</th>
