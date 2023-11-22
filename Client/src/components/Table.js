@@ -1,7 +1,9 @@
+import { useState } from "react";
 import React from "react";
 import "./Table.css";
 
-export default function Table({ data, changePage, page, handleSearch }) {
+export default function Table({ data, changePage, page, handleSearch, handleSwitch }) {
+  const [isToggled, setIsToggled] = useState(false);
   return (
     <div className="main">
       <div className="container">
@@ -12,6 +14,7 @@ export default function Table({ data, changePage, page, handleSearch }) {
               placeholder="Hledat"
               onChange={(e) => handleSearch(e)}
             ></input>
+            <button style={{backgroundColor: isToggled ? 'green' : 'red'}} onClick={(e) => {handleSwitch(e); setIsToggled(!isToggled)}}>Hledat Nad Položkami</button>
           </div>
         </div>
         <div className="table-container mt-5">
@@ -35,7 +38,7 @@ export default function Table({ data, changePage, page, handleSearch }) {
               </tr>
             </thead>
             <tbody>
-              {data?.map((r, index) => (
+              {data?.map((r) => (
                 <tr>
                   <td>
                     <div className="d-flex align-items-center">
