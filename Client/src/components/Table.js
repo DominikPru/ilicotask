@@ -2,8 +2,15 @@ import { useState } from "react";
 import React from "react";
 import "./Table.css";
 
-export default function Table({ data, changePage, page, handleSearch, handleSwitch }) {
+export default function Table({
+  data,
+  changePage,
+  page,
+  handleSearch,
+  handleSwitch,
+}) {
   const [isToggled, setIsToggled] = useState(false);
+  console.log("Relodaign")
   return (
     <div className="main">
       <div className="container">
@@ -14,7 +21,15 @@ export default function Table({ data, changePage, page, handleSearch, handleSwit
               placeholder="Hledat"
               onChange={(e) => handleSearch(e)}
             ></input>
-            <button style={{backgroundColor: isToggled ? 'green' : 'red'}} onClick={(e) => {handleSwitch(e); setIsToggled(!isToggled)}}>Hledat Nad Položkami</button>
+            <button
+              style={{ backgroundColor: isToggled ? "green" : "red" }}
+              onClick={(e) => {
+                handleSwitch(e);
+                setIsToggled(!isToggled);
+              }}
+            >
+              Hledat Nad Položkami
+            </button>
           </div>
         </div>
         <div className="table-container mt-5">
@@ -38,73 +53,79 @@ export default function Table({ data, changePage, page, handleSearch, handleSwit
               </tr>
             </thead>
             <tbody>
-              {data?.map((r) => (
-                <tr>
-                  <td>
-                    <div className="d-flex align-items-center">
-                      <div className="">
-                        <p className="fw-bold mb-1">{r.kod}</p>
+              {Array.isArray(data) && data && data.length > 0 ? (
+                data?.map((r, index) => (
+                  <tr key={index}>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <div className="">
+                          <p className="fw-bold mb-1">{r.kod}</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1">{r["uzivatel@showAs"]}</p>
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1">{r.kontaktJmeno}</p>
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1 fs-small">
-                      {r["stat@showAs"]}
-                      <br />
-                      {r.mesto + " " + r.psc}
-                      <br />
-                      {r.ulice}
-                      <br />
-                      {r.ic + " " + r.dic}
-                    </p>
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1">{r.doprava}</p>
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1">
-                      {r["formaUhradyCis@showAs"]}
-                    </p>
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1">{r["stavUzivK@showAs"]}</p>
-                  </td>
-                  <td>
-                    {r.polozkyObchDokladu?.map((i, index2) => (
-                      <p key={index2} className="fw-normal mb-1 fs-small">
-                        {i.nazev} {i.sumCelkem}Kč <br />
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{r["uzivatel@showAs"]}</p>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{r.kontaktJmeno}</p>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1 fs-small">
+                        {r["stat@showAs"]}
+                        <br />
+                        {r.mesto + " " + r.psc}
+                        <br />
+                        {r.ulice}
+                        <br />
+                        {r.ic + " " + r.dic}
                       </p>
-                    ))}
-                  </td>
-                  <td>
-                    <p className="fw-normal mb-1">{r.sumCelkem}</p>
-                  </td>
-                  <td
-                    onClick={() =>
-                      window.open(
-                        "https://demo.flexibee.eu/c/demo/objednavka-prijata/" +
-                          r.id +
-                          ".pdf",
-                        "_blank"
-                      )
-                    }
-                  >
-                    <button
-                      type="button"
-                      className="btn btn-link btn-sm btn-rounded text-primary"
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{r.doprava}</p>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">
+                        {r["formaUhradyCis@showAs"]}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{r["stavUzivK@showAs"]}</p>
+                    </td>
+                    <td>
+                      {r.polozkyObchDokladu?.map((i, index2) => (
+                        <p key={index2} className="fw-normal mb-1 fs-small">
+                          {i.nazev} {i.sumCelkem}Kč <br />
+                        </p>
+                      ))}
+                    </td>
+                    <td>
+                      <p className="fw-normal mb-1">{r.sumCelkem}</p>
+                    </td>
+                    <td
+                      onClick={() =>
+                        window.open(
+                          "https://demo.flexibee.eu/c/demo/objednavka-prijata/" +
+                            r.id +
+                            ".pdf",
+                          "_blank"
+                        )
+                      }
                     >
-                      <i className="me-1 action-icon bi bi-file-earmark-richtext text-primary"></i>
-                      Faktura
-                    </button>
-                  </td>
+                      <button
+                        type="button"
+                        className="btn btn-link btn-sm btn-rounded text-primary"
+                      >
+                        <i className="me-1 action-icon bi bi-file-earmark-richtext text-primary"></i>
+                        Faktura
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="10">Error: No data available</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
 

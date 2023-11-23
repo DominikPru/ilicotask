@@ -18,7 +18,9 @@ function App() {
     setProductSearch(!productSearch);
   }
   useEffect(() => {
+    console.log(runEffect)
     if (runEffect) {
+      console.log("getting data")
       if (productSearch){
       axios
         .get("http://localhost:8888/get_products", {
@@ -52,8 +54,8 @@ function App() {
         })
         .then((res) => {
           if (res.data == "err") {
-            setPage(page - 1);
-            setRunEffect(false);
+            setPage(0);
+            setResponse(res.data);
           } else {
             setResponse(res.data);
             console.log(response);
@@ -64,7 +66,7 @@ function App() {
         });
       }
     }
-  }, [runEffect, page, search]);
+  }, [productSearch, page, search]);
 
   useEffect(() => {
     setPage(0);
