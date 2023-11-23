@@ -10,7 +10,6 @@ export default function Table({
   handleSwitch,
 }) {
   const [isToggled, setIsToggled] = useState(false);
-  console.log("Relodaign")
   return (
     <div className="main">
       <div className="container">

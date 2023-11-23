@@ -10,15 +10,40 @@ function getOrders(orderCount, orderPage, query) {
   return new Promise((resolve, reject) => {
     if (isNumber(orderCount) && isNumber(orderPage)) {
       axios
-        .get(
-          "https://demo.flexibee.eu/c/demo/objednavka-prijata.json?limit=" +
+        .post(
+          "https://demo.flexibee.eu/c/demo/objednavka-prijata/query.json?limit=" +
             orderCount +
             "&order=datVyst@D" +
             "&start=" +
             orderCount * orderPage +
-            "&q=" +
-            query +
-            "&detail=full&relations=polozky"
+            "&relations=polozky",
+          {
+            winstrom: {
+              detail: "full",
+              filter:
+              "(kod like similar '" +
+              query +
+              "' or kontaktJmeno like similar '" +
+              query +
+              "' or mesto like similar '" +
+              query +
+              "' or ulice like similar '" +
+              query +
+              "' or psc like similar '" +
+              query +
+              "' or ic like similar '" +
+              query +
+              "' or dic like similar '" +
+              query +
+              "' or doprava like similar '" +
+              query +
+              "' or sumCelkem like similar '" +
+              query +
+              "' or stavUzivK like similar '" +
+              query +
+              "')",
+            },
+          }
         )
         .then(function (response) {
           resolve(response.data.winstrom["objednavka-prijata"]);
@@ -61,23 +86,22 @@ function getProducts(orderPage, query) {
 
 function getOrdersByIds(ids) {
   return new Promise((resolve, reject) => {
-    if (ids.length > 0){
-    axios
-      .get(
-        "https://demo.flexibee.eu/c/demo/objednavka-prijata/(kod in (" +
-          ids +
-          ")).json?order=datVyst@D&detail=full&relations=polozky"
-      )
-      .then(function (response) {
-        resolve(response.data.winstrom["objednavka-prijata"]);
-      })
-      .catch(function (error) {
-        console.log(error);
-        reject(error);
-      });
-    }
-    else {
-    resolve([]);
+    if (ids.length > 0) {
+      axios
+        .get(
+          "https://demo.flexibee.eu/c/demo/objednavka-prijata/(kod in (" +
+            ids +
+            ")).json?order=datVyst@D&detail=full&relations=polozky"
+        )
+        .then(function (response) {
+          resolve(response.data.winstrom["objednavka-prijata"]);
+        })
+        .catch(function (error) {
+          console.log(error);
+          reject(error);
+        });
+    } else {
+      resolve([]);
     }
   });
 }

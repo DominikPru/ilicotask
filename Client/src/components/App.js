@@ -20,7 +20,6 @@ function App() {
   useEffect(() => {
     console.log(runEffect)
     if (runEffect) {
-      console.log("getting data")
       if (!productSearch || search == ""){
         axios
         .get("http://localhost:8888/get_orders", {
