@@ -13,7 +13,7 @@ function getOrders(orderCount, orderPage, query) {
         .post(
           "https://demo.flexibee.eu/c/demo/objednavka-prijata/query.json?limit=" +
             orderCount +
-            "&order=datVyst@D" +
+            "&order=datVyst@D" + "&limit=5" +
             "&start=" +
             orderCount * orderPage +
             "&relations=polozky",
