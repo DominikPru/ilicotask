@@ -21,29 +21,7 @@ function App() {
     console.log(runEffect)
     if (runEffect) {
       console.log("getting data")
-      if (productSearch){
-      axios
-        .get("http://localhost:8888/get_products", {
-          params: {
-            orderPage: page,
-            orderCount: 5,
-            search: search,
-          },
-        })
-        .then((res) => {
-          if (res.data == "err") {
-            setPage(page - 1);
-            setRunEffect(false);
-          } else {
-            setResponse(res.data);
-            console.log(response);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      }
-        else{
+      if (!productSearch || search == ""){
         axios
         .get("http://localhost:8888/get_orders", {
           params: {
@@ -64,6 +42,28 @@ function App() {
         .catch((error) => {
           console.log(error);
         });
+      }
+        else{
+          axios
+          .get("http://localhost:8888/get_products", {
+            params: {
+              orderPage: page,
+              orderCount: 5,
+              search: search,
+            },
+          })
+          .then((res) => {
+            if (res.data == "err") {
+              setPage(page - 1);
+              setRunEffect(false);
+            } else {
+              setResponse(res.data);
+              console.log(response);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     }
   }, [productSearch, page, search]);
