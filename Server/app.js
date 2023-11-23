@@ -35,7 +35,7 @@ function getOrders(orderCount, orderPage, query) {
 
 function getProducts(orderPage, query) {
   return new Promise((resolve, reject) => {
-    if (isNumber(orderPage) && query != "") {
+    if (isNumber(orderPage)) {
       axios
         .get(
           "https://demo.flexibee.eu/c/demo/objednavka-prijata-polozka/(nazev like '" +
@@ -54,7 +54,7 @@ function getProducts(orderPage, query) {
           reject(error);
         });
     } else {
-      reject("Count or Page cannot be a string, or query cant be empty");
+      reject("Count or Page cannot be a string");
     }
   });
 }
