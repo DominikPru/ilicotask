@@ -20,6 +20,8 @@ function getOrders(orderCount, orderPage, query) {
           {
             winstrom: {
               detail: "full",
+              limit: "5",
+              start: orderCount * orderPage, 
               filter:
               "(kod like similar '" +
               query +
@@ -40,6 +42,10 @@ function getOrders(orderCount, orderPage, query) {
               "' or sumCelkem like similar '" +
               query +
               "' or stavUzivK like similar '" +
+              query +
+              "' or formaUhradyCis.nazev like similar '" +
+              query +
+              "' or stat.nazev like similar '" +
               query +
               "')",
             },
